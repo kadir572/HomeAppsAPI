@@ -9,4 +9,5 @@ export interface IExpense {
   createdDate: Date
   editedDate?: Date
   deletedDate?: Date
+  _id?: string
 }

@@ -9,6 +9,7 @@ const expensesController_2 = require("../controllers/expensesController");
 const router = express_1.default.Router();
 router.get('/', expensesController_2.getAllExpenses);
 router.post('/', expensesController_1.addExpense);
+router.put('/:id/debtor/:debtorId', expensesController_1.toggleDebtorPaidStatus);
 router.delete('/:id', expensesController_1.deleteExpense);
 exports.default = router;
 //# sourceMappingURL=expensesRoutes.js.map

@@ -22,6 +22,20 @@ export const addExpense = async (req: Request, res: Response) => {
   }
 }
 
+export const toggleDebtorPaidStatus = async (req: Request, res: Response) => {
+  const { id, debtorId } = req.params
+  try {
+    const expense = await Expense.findById(id)
+    expense.debtors
+      .filter(debtor => String(debtor._id) === debtorId)
+      .map(d => (d.paid = !d.paid))
+    const response = await Expense.findByIdAndUpdate(id, expense)
+    res.send(expense)
+  } catch (err) {
+    res.status(400).json({ message: err })
+  }
+}
+
 export const deleteExpense = async (req: Request, res: Response) => {
   const { id } = req.params
   try {

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteExpense = exports.addExpense = exports.getAllExpenses = void 0;
+exports.deleteExpense = exports.toggleDebtorPaidStatus = exports.addExpense = exports.getAllExpenses = void 0;
 const Expense_1 = __importDefault(require("../models/Expense"));
 const getAllExpenses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -35,6 +35,21 @@ const addExpense = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.addExpense = addExpense;
+const toggleDebtorPaidStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, debtorId } = req.params;
+    try {
+        const expense = yield Expense_1.default.findById(id);
+        expense.debtors
+            .filter(debtor => String(debtor._id) === debtorId)
+            .map(d => (d.paid = !d.paid));
+        const response = yield Expense_1.default.findByIdAndUpdate(id, expense);
+        res.send(expense);
+    }
+    catch (err) {
+        res.status(400).json({ message: err });
+    }
+});
+exports.toggleDebtorPaidStatus = toggleDebtorPaidStatus;
 const deleteExpense = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {

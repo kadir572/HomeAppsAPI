@@ -23,10 +23,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/expense', expensesRouter)
 
-app.get('/', (req, res) => {
-  res.send('Hello from express')
-})
-
 app.listen(PORT, () => {
   // tslint:disable-next-line:no-console
   console.log(`App is running on port ${PORT}`)

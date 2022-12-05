@@ -15,7 +15,7 @@ connectDB()
 const app = express()
 app.use(
   cors({
-    origin: 'https://home-apps-api.herokuapp.com/',
+    origin: 'https://home-apps.netlify.app',
   })
 )
 app.use(express.json())

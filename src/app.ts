@@ -14,10 +14,9 @@ connectDB()
 
 const app = express()
 app.use(
-  cors()
-  //   {
-  //   origin: 'http://localhost:5173',
-  // }
+  cors({
+    origin: 'https://home-apps-api.herokuapp.com/',
+  })
 )
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

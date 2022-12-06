@@ -14,9 +14,18 @@ const PORT = process.env.PORT || process.env.SERVER_PORT;
 // DB Connection
 (0, db_1.default)();
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: 'http://localhost:5173',
-}));
+const whitelist = [process.env.UI_URL];
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use('/expense', expensesRoutes_1.default);

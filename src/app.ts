@@ -13,11 +13,19 @@ const PORT = process.env.PORT || process.env.SERVER_PORT
 connectDB()
 
 const app = express()
-app.use(
-  cors({
-    origin: 'https://home-apps.netlify.app',
-  })
-)
+const whitelist = ['https://home-apps.netlify.app', 'http://localhost:5173']
+
+var corsOptions = {
+  origin: (origin: string, callback: Function) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/expense', expensesRouter)

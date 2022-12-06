@@ -13,10 +13,10 @@ const PORT = process.env.PORT || process.env.SERVER_PORT
 connectDB()
 
 const app = express()
-const whitelist = ['https://home-apps.netlify.app', 'http://localhost:5173']
+const whitelist = [process.env.UI_URL]
 
 const corsOptions = {
-  origin: (origin: string, callback: Function) => {
+  origin: (origin: string, callback: any) => {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {

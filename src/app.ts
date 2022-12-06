@@ -15,7 +15,7 @@ connectDB()
 const app = express()
 const whitelist = ['https://home-apps.netlify.app', 'http://localhost:5173']
 
-var corsOptions = {
+const corsOptions = {
   origin: (origin: string, callback: Function) => {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
